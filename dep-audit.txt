@@ -1,0 +1,214 @@
+=== Package versions ===
+    "ai": "^6.0.89",
+    "next": "15.5.12",
+    "react": "^19.1.2",
+
+=== Installed tree ===
+traza-training@0.1.0 /home/albertomartin/code/training_traza/traza-training
+├── @ai-sdk/anthropic@3.0.45
+├─┬ @ai-sdk/react@3.0.91
+│ ├── ai@6.0.89 deduped
+│ ├── react@19.1.2 deduped
+│ └─┬ swr@2.4.0
+│   ├── react@19.1.2 deduped
+│   └─┬ use-sync-external-store@1.6.0
+│     └── react@19.1.2 deduped
+├─┬ @tailwindcss/postcss@4.1.18
+│ ├─┬ @tailwindcss/node@4.1.18
+│ │ └── tailwindcss@4.1.18 deduped
+│ └── tailwindcss@4.1.18 deduped
+├── ai@6.0.89
+├─┬ lucide-react@0.574.0
+│ └── react@19.1.2 deduped
+├─┬ next@15.5.12
+│ ├── react-dom@19.1.2 deduped
+│ ├── react@19.1.2 deduped
+│ └─┬ styled-jsx@5.1.6
+│   └── react@19.1.2 deduped
+├─┬ radix-ui@1.4.3
+│ ├─┬ @radix-ui/react-accessible-icon@1.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-accordion@1.2.12
+│ │ ├─┬ @radix-ui/react-id@1.1.1
+│ │ │ └── react@19.1.2 deduped
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-alert-dialog@1.1.15
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-arrow@1.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-aspect-ratio@1.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-avatar@1.1.10
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-checkbox@1.3.3
+│ │ ├─┬ @radix-ui/react-use-previous@1.1.1
+│ │ │ └── react@19.1.2 deduped
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-collapsible@1.1.12
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-collection@1.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-compose-refs@1.1.2
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-context-menu@2.2.16
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-context@1.1.2
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-dialog@1.1.15
+│ │ ├── react-dom@19.1.2 deduped
+│ │ ├─┬ react-remove-scroll@2.7.2
+│ │ │ ├─┬ react-remove-scroll-bar@2.3.8
+│ │ │ │ └── react@19.1.2 deduped
+│ │ │ ├─┬ react-style-singleton@2.2.3
+│ │ │ │ └── react@19.1.2 deduped
+│ │ │ ├── react@19.1.2 deduped
+│ │ │ ├─┬ use-callback-ref@1.3.3
+│ │ │ │ └── react@19.1.2 deduped
+│ │ │ └─┬ use-sidecar@1.1.3
+│ │ │   └── react@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-direction@1.1.1
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-dismissable-layer@1.1.11
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-dropdown-menu@2.1.16
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-focus-guards@1.1.3
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-focus-scope@1.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-form@0.1.8
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-hover-card@1.1.15
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-label@2.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-menu@2.1.16
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-menubar@1.1.16
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-navigation-menu@1.2.14
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-one-time-password-field@0.1.8
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-password-toggle-field@0.1.3
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-popover@1.1.15
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-popper@1.2.8
+│ │ ├─┬ @floating-ui/react-dom@2.1.7
+│ │ │ ├── react-dom@19.1.2 deduped
+│ │ │ └── react@19.1.2 deduped
+│ │ ├─┬ @radix-ui/react-use-rect@1.1.1
+│ │ │ └── react@19.1.2 deduped
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-portal@1.1.9
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-presence@1.1.5
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-primitive@2.1.3
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-progress@1.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-radio-group@1.3.8
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-roving-focus@1.1.11
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-scroll-area@1.2.10
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-select@2.2.6
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-separator@1.1.7
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-slider@1.3.6
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-slot@1.2.3
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-switch@1.2.6
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-tabs@1.1.13
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-toast@1.2.15
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-toggle-group@1.1.11
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-toggle@1.1.10
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-toolbar@1.1.11
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-tooltip@1.2.8
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-use-callback-ref@1.1.1
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-use-controllable-state@1.2.2
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-use-effect-event@0.0.2
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-use-escape-keydown@1.1.1
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-use-is-hydrated@0.1.0
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-use-layout-effect@1.1.1
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-use-size@1.1.1
+│ │ └── react@19.1.2 deduped
+│ ├─┬ @radix-ui/react-visually-hidden@1.2.3
+│ │ ├── react-dom@19.1.2 deduped
+│ │ └── react@19.1.2 deduped
+│ ├── react-dom@19.1.2 deduped
+│ └── react@19.1.2 deduped
+├─┬ react-dom@19.1.2
+│ └── react@19.1.2 deduped
+├─┬ react-markdown@10.1.0
+│ └── react@19.1.2 deduped
+├── react@19.1.2
+└── tailwindcss@4.1.18
+
+
+=== Node & npm ===
+Node: v20.20.0
+npm: 10.8.2
+
+
+=== Current build status ===
+BUILD: PASS (zero errors)
