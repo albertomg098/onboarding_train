@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -15,6 +16,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Traza Training Hub",
   description:
@@ -28,19 +31,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} h-screen-safe bg-background text-foreground antialiased overflow-hidden`}
-      >
-        <TooltipProvider>
-          <SidebarProvider className="h-full !min-h-0 overflow-hidden">
-            <AppSidebar />
-            <SidebarInset>
-              <main className="flex-1 h-full overflow-hidden">{children}</main>
-            </SidebarInset>
-          </SidebarProvider>
-        </TooltipProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="dark" suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} h-screen-safe bg-background text-foreground antialiased overflow-hidden`}
+        >
+          <TooltipProvider>
+            <SidebarProvider className="h-full !min-h-0 overflow-hidden">
+              <AppSidebar />
+              <SidebarInset>
+                <main className="flex-1 h-full overflow-hidden">{children}</main>
+              </SidebarInset>
+            </SidebarProvider>
+          </TooltipProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

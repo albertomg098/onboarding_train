@@ -13,7 +13,8 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
-import { BookOpen, Brain, Target } from "lucide-react";
+import { BookOpen, Brain, Target, Settings } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
 
 const NAV_ITEMS = [
   {
@@ -79,11 +80,12 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4">
-        <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
-          <span className="text-[10px] text-muted-foreground">
-            Traza Training Hub v1
-          </span>
+      <SidebarFooter>
+        <div className="flex items-center justify-between px-2 py-1">
+          <UserButton afterSignOutUrl="/sign-in" />
+          <Link href="/settings" className="p-2 rounded-md hover:bg-accent">
+            <Settings className="h-4 w-4" />
+          </Link>
         </div>
       </SidebarFooter>
     </Sidebar>
