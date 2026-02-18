@@ -31,8 +31,16 @@ import {
   type ChatType,
 } from "@/lib/prompt-store";
 import { CHAT_PLACEHOLDERS } from "@/lib/constants";
-import { Copy, Trash2, MessageSquare } from "lucide-react";
+import { archiveChat, getArchives, restoreArchive } from "@/lib/chat-archive";
+import { ContextPanel } from "@/components/context-panel";
+import { Copy, Trash2, MessageSquare, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 interface ChatInterfaceProps {
   type: ChatType;
@@ -103,9 +111,10 @@ export function ChatInterface({ type }: ChatInterfaceProps) {
   // --- Actions ---
 
   const handleClear = useCallback(() => {
+    archiveChat(type, messages);
     setMessages([]);
     localStorage.removeItem(`traza-chat-${type}`);
-  }, [type, setMessages]);
+  }, [type, messages, setMessages]);
 
   const handleCopy = useCallback(() => {
     const text = messages
@@ -131,6 +140,7 @@ export function ChatInterface({ type }: ChatInterfaceProps) {
   );
 
   const suggestedPrompts = getSuggestedPrompts(type);
+  const archives = getArchives(type);
   const isStreaming = status === "streaming";
 
   return (
@@ -141,6 +151,44 @@ export function ChatInterface({ type }: ChatInterfaceProps) {
           {messages.length} message{messages.length !== 1 ? "s" : ""}
         </span>
         <div className="flex gap-1">
+          {archives.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <History className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-72">
+                <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                  Archived Conversations
+                </div>
+                {archives.map((archive) => (
+                  <DropdownMenuItem
+                    key={archive.id}
+                    onClick={() => {
+                      const msgs = restoreArchive(type, archive.id);
+                      if (msgs) {
+                        setMessages(msgs);
+                        localStorage.setItem(
+                          `traza-chat-${type}`,
+                          JSON.stringify(msgs)
+                        );
+                      }
+                    }}
+                    className="flex flex-col items-start"
+                  >
+                    <span className="text-sm truncate w-full">
+                      {archive.preview}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(archive.timestamp).toLocaleDateString()} ·{" "}
+                      {archive.messageCount} msgs
+                    </span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
           <Button
             variant="ghost"
             size="icon"
@@ -159,6 +207,9 @@ export function ChatInterface({ type }: ChatInterfaceProps) {
           </Button>
         </div>
       </div>
+
+      {/* Context Panel */}
+      <ContextPanel type={type} />
 
       {/* Chat area */}
       <Conversation className="flex-1">
