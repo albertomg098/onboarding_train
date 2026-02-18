@@ -46,7 +46,7 @@ export function ModuleLayout({
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
-        className="flex-1 flex flex-col overflow-hidden mt-4"
+        className="flex-1 flex flex-col overflow-hidden mt-4 min-h-0"
       >
         <div className="px-6">
           <TabsList className="bg-muted/50">
@@ -64,14 +64,14 @@ export function ModuleLayout({
 
         <TabsContent
           value="theory"
-          className="flex-1 overflow-y-auto px-6 pb-6 mt-4"
+          className="flex-1 overflow-y-auto px-6 pb-6 mt-4 min-h-0"
         >
           {theoryContent}
         </TabsContent>
 
         <TabsContent
           value="training"
-          className="flex-1 overflow-hidden mt-0"
+          className="flex-1 flex flex-col overflow-hidden mt-0 min-h-0"
           forceMount
           style={
             activeTab === "training"
@@ -79,7 +79,7 @@ export function ModuleLayout({
               : { visibility: "hidden", height: 0, overflow: "hidden", flex: "none" }
           }
         >
-          <div className="flex-1 h-full" ref={chatContainerRef}>
+          <div className="flex-1 h-full min-h-0" ref={chatContainerRef}>
             <ChatInterface type={chatType} />
           </div>
         </TabsContent>

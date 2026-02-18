@@ -40,7 +40,7 @@ export default function RootLayout({
           <TooltipProvider>
             <SidebarProvider className="h-full !min-h-0 overflow-hidden">
               <AppSidebar />
-              <SidebarInset>
+              <SidebarInset className="min-h-0 overflow-hidden">
                 <main className="flex-1 h-full overflow-hidden">
                   <ChatMigrationProvider>
                     {children}
