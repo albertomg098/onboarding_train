@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { PromptEditor } from "@/components/prompt-editor";
 
 type KeyStatus = "idle" | "testing" | "valid" | "invalid";
 
@@ -103,7 +104,7 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-      {/* Prompt Editor added in Phase 2 */}
+      <PromptEditor />
     </div>
   );
 }

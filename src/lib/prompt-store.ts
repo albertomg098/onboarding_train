@@ -1,0 +1,116 @@
+import { SYSTEM_PROMPTS } from "./prompts";
+import { SUGGESTED_PROMPTS } from "./constants";
+
+export type ChatType = "domain" | "framework" | "simulation";
+
+const STORAGE_PREFIX = "traza-prompt-";
+const SUGGESTED_PREFIX = "traza-suggested-";
+const CONTEXT_PREFIX = "traza-context-";
+
+const MAX_PROMPT_LENGTH = 10_000;
+const MAX_CONTEXT_LENGTH = 2_000;
+
+// --- System Prompts ---
+
+export function getSystemPrompt(type: ChatType): string {
+  if (typeof window === "undefined") return SYSTEM_PROMPTS[type];
+  const custom = localStorage.getItem(`${STORAGE_PREFIX}${type}`);
+  return custom ?? SYSTEM_PROMPTS[type];
+}
+
+export function setSystemPrompt(type: ChatType, prompt: string): void {
+  if (!prompt.trim()) return;
+  localStorage.setItem(`${STORAGE_PREFIX}${type}`, prompt.slice(0, MAX_PROMPT_LENGTH));
+}
+
+export function resetSystemPrompt(type: ChatType): void {
+  localStorage.removeItem(`${STORAGE_PREFIX}${type}`);
+}
+
+export function isPromptCustomized(type: ChatType): boolean {
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem(`${STORAGE_PREFIX}${type}`) !== null;
+}
+
+// --- Suggested Prompts ---
+
+export function getSuggestedPrompts(type: ChatType): string[] {
+  if (typeof window === "undefined") return SUGGESTED_PROMPTS[type] ?? [];
+  const custom = localStorage.getItem(`${SUGGESTED_PREFIX}${type}`);
+  if (custom) {
+    try {
+      return JSON.parse(custom);
+    } catch {
+      return SUGGESTED_PROMPTS[type] ?? [];
+    }
+  }
+  return SUGGESTED_PROMPTS[type] ?? [];
+}
+
+export function setSuggestedPrompts(type: ChatType, prompts: string[]): void {
+  localStorage.setItem(`${SUGGESTED_PREFIX}${type}`, JSON.stringify(prompts));
+}
+
+export function resetSuggestedPrompts(type: ChatType): void {
+  localStorage.removeItem(`${SUGGESTED_PREFIX}${type}`);
+}
+
+// --- User Context ---
+
+export function getContext(type: ChatType): string {
+  if (typeof window === "undefined") return "";
+  return localStorage.getItem(`${CONTEXT_PREFIX}${type}`) ?? "";
+}
+
+export function setContext(type: ChatType, context: string): void {
+  localStorage.setItem(`${CONTEXT_PREFIX}${type}`, context.slice(0, MAX_CONTEXT_LENGTH));
+}
+
+export function resetContext(type: ChatType): void {
+  localStorage.removeItem(`${CONTEXT_PREFIX}${type}`);
+}
+
+// --- Full prompt assembly ---
+
+export function getFullSystemPrompt(type: ChatType): string {
+  const base = getSystemPrompt(type);
+  const context = getContext(type);
+  if (!context.trim()) return base;
+  return `${base}\n\n## User Context\n${context}`;
+}
+
+// --- Export / Import ---
+
+export function exportAllPrompts(): string {
+  const data: Record<string, unknown> = {};
+  const types: ChatType[] = ["domain", "framework", "simulation"];
+  for (const type of types) {
+    const prompt = localStorage.getItem(`${STORAGE_PREFIX}${type}`);
+    const suggested = localStorage.getItem(`${SUGGESTED_PREFIX}${type}`);
+    const context = localStorage.getItem(`${CONTEXT_PREFIX}${type}`);
+    if (prompt) data[`prompt-${type}`] = prompt;
+    if (suggested) data[`suggested-${type}`] = suggested;
+    if (context) data[`context-${type}`] = context;
+  }
+  return JSON.stringify(data, null, 2);
+}
+
+export function importAllPrompts(json: string): { success: boolean; error?: string } {
+  try {
+    const data = JSON.parse(json);
+    if (typeof data !== "object" || data === null) {
+      return { success: false, error: "Invalid format: expected JSON object" };
+    }
+    for (const [key, value] of Object.entries(data)) {
+      if (
+        typeof value === "string" &&
+        (key.startsWith("prompt-") || key.startsWith("suggested-") || key.startsWith("context-"))
+      ) {
+        localStorage.setItem(`traza-${key}`, value);
+      }
+    }
+    return { success: true };
+  } catch {
+    return { success: false, error: "Invalid JSON" };
+  }
+}

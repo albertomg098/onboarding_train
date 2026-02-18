@@ -13,29 +13,9 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
-import { BookOpen, Brain, Target, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
-
-const NAV_ITEMS = [
-  {
-    href: "/domain",
-    label: "Domain Knowledge",
-    icon: BookOpen,
-    description: "Freight forwarding fundamentals",
-  },
-  {
-    href: "/framework",
-    label: "Mental Framework",
-    icon: Brain,
-    description: "5-step problem solving",
-  },
-  {
-    href: "/simulation",
-    label: "Scenario Simulation",
-    icon: Target,
-    description: "Practice work trials",
-  },
-] as const;
+import { MODULES } from "@/lib/modules";
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -62,20 +42,20 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Modules</SidebarGroupLabel>
           <SidebarMenu>
-            {NAV_ITEMS.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === item.href}
-                  tooltip={item.label}
-                >
-                  <Link href={item.href}>
-                    <item.icon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+            {MODULES.map((mod) => {
+              const Icon = mod.icon;
+              const isActive = pathname === mod.href;
+              return (
+                <SidebarMenuItem key={mod.id}>
+                  <SidebarMenuButton asChild isActive={isActive} tooltip={mod.label}>
+                    <Link href={mod.href}>
+                      <Icon className="h-4 w-4" />
+                      <span>{mod.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
