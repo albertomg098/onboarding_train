@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/app-sidebar";
+import { ChatMigrationProvider } from "@/components/chat-migration-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -40,7 +41,11 @@ export default function RootLayout({
             <SidebarProvider className="h-full !min-h-0 overflow-hidden">
               <AppSidebar />
               <SidebarInset>
-                <main className="flex-1 h-full overflow-hidden">{children}</main>
+                <main className="flex-1 h-full overflow-hidden">
+                  <ChatMigrationProvider>
+                    {children}
+                  </ChatMigrationProvider>
+                </main>
               </SidebarInset>
             </SidebarProvider>
           </TooltipProvider>
