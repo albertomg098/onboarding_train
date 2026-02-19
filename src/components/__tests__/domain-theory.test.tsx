@@ -60,6 +60,35 @@ const mockResponseData: DomainTheoryData = {
   sources: [{ title: "Source", url: "https://example.com" }],
 };
 
+describe("DomainTheory — layout consistency", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    const store: Record<string, string> = {};
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(
+      (key: string) => store[key] ?? null
+    );
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(
+      (key: string, value: string) => {
+        store[key] = value;
+      }
+    );
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.restoreAllMocks();
+  });
+
+  it("constrains the input card to the same max-width as the theory content", () => {
+    render(<DomainTheory />);
+
+    // The Card wrapping the input should have max-w-4xl to match TheoryRenderer
+    const card = screen.getByText(/Default: Freight Forwarding/).closest("[class*='max-w']");
+    expect(card).not.toBeNull();
+    expect(card?.className).toMatch(/max-w-4xl/);
+  });
+});
+
 describe("DomainTheory — generation wiring", () => {
   beforeEach(() => {
     vi.clearAllMocks();
