@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ChatMigrationProvider } from "@/components/chat-migration-provider";
 import { MobileHeader } from "@/components/mobile-header";
+import { SidebarCloseOnNav } from "@/components/sidebar-close-on-nav";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,6 +42,7 @@ export default function RootLayout({
           <TooltipProvider>
             <SidebarProvider className="h-full !min-h-0">
               <AppSidebar />
+              <SidebarCloseOnNav />
               <SidebarInset className="h-full min-h-0 overflow-hidden">
                 <MobileHeader />
                 <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
