@@ -142,12 +142,12 @@ export function PromptEditor() {
           value={activeTab}
           onValueChange={(v) => setActiveTab(v as ChatType)}
         >
-          <TabsList className="mb-4">
+          <TabsList className="mb-4 w-full">
             {CHAT_TYPES.map((ct) => (
               <TabsTrigger
                 key={ct.id}
                 value={ct.id}
-                className="flex items-center gap-2"
+                className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
               >
                 {ct.label}
                 {isPromptCustomized(ct.id) && (
@@ -238,7 +238,7 @@ export function PromptEditor() {
         </Tabs>
 
         {/* Action bar */}
-        <div className="flex items-center justify-between mt-4 pt-4 border-t">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mt-4 pt-4 border-t">
           <div className="flex gap-2">
             <Button size="sm" variant="outline" onClick={handleExport}>
               <Download className="h-3 w-3 mr-1" /> Export

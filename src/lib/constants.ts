@@ -32,3 +32,29 @@ export const CHAT_PLACEHOLDERS: Record<string, string> = {
   framework: "Practice the 5-step framework...",
   simulation: "Start a simulation or ask for a scenario...",
 };
+
+// --- Model Selection ---
+
+export const ANTHROPIC_MODELS = [
+  {
+    id: "claude-haiku-4-5-20251001",
+    name: "Haiku 3.5",
+    description: "Fast & affordable",
+  },
+  {
+    id: "claude-sonnet-4-20250514",
+    name: "Sonnet 4",
+    description: "Balanced (default)",
+  },
+  {
+    id: "claude-opus-4-20250514",
+    name: "Opus 4",
+    description: "Most capable",
+  },
+] as const;
+
+export type AnthropicModelId = (typeof ANTHROPIC_MODELS)[number]["id"];
+
+export const DEFAULT_MODEL_ID: AnthropicModelId = "claude-sonnet-4-20250514";
+
+export const ALLOWED_MODEL_IDS: readonly string[] = ANTHROPIC_MODELS.map((m) => m.id);

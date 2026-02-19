@@ -73,6 +73,19 @@ export function resetContext(type: ChatType): void {
   localStorage.removeItem(`${CONTEXT_PREFIX}${type}`);
 }
 
+// --- Model Selection ---
+
+const MODEL_KEY = "traza-model";
+
+export function getSelectedModel(): string {
+  if (typeof window === "undefined") return "claude-sonnet-4-20250514";
+  return localStorage.getItem(MODEL_KEY) ?? "claude-sonnet-4-20250514";
+}
+
+export function setSelectedModel(modelId: string): void {
+  localStorage.setItem(MODEL_KEY, modelId);
+}
+
 // --- Full prompt assembly ---
 
 export function getFullSystemPrompt(type: ChatType): string {
