@@ -21,6 +21,11 @@ import {
   PromptInputBody,
   PromptInputFooter,
   PromptInputSubmit,
+  PromptInputSelect,
+  PromptInputSelectTrigger,
+  PromptInputSelectContent,
+  PromptInputSelectItem,
+  PromptInputSelectValue,
 } from "@/components/ai-elements/prompt-input";
 import { Suggestions, Suggestion } from "@/components/ai-elements/suggestion";
 import { Shimmer } from "@/components/ai-elements/shimmer";
@@ -28,9 +33,11 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 import {
   getFullSystemPrompt,
   getSuggestedPrompts,
+  getSelectedModel,
+  setSelectedModel,
   type ChatType,
 } from "@/lib/prompt-store";
-import { CHAT_PLACEHOLDERS } from "@/lib/constants";
+import { CHAT_PLACEHOLDERS, ANTHROPIC_MODELS } from "@/lib/constants";
 import { archiveChat, getArchives, restoreArchive } from "@/lib/chat-archive";
 import { ContextPanel } from "@/components/context-panel";
 import { Copy, Trash2, MessageSquare, History } from "lucide-react";
@@ -48,6 +55,12 @@ interface ChatInterfaceProps {
 
 export function ChatInterface({ type }: ChatInterfaceProps) {
   const [input, setInput] = useState("");
+  const [selectedModel, setSelectedModelState] = useState(() => getSelectedModel());
+
+  const handleModelChange = useCallback((modelId: string) => {
+    setSelectedModelState(modelId);
+    setSelectedModel(modelId);
+  }, []);
 
   const transport = useMemo(
     () =>
@@ -59,6 +72,7 @@ export function ChatInterface({ type }: ChatInterfaceProps) {
             messages,
             type,
             systemPrompt: getFullSystemPrompt(type),
+            model: getSelectedModel(),
           },
         }),
       }),
@@ -286,6 +300,21 @@ export function ChatInterface({ type }: ChatInterfaceProps) {
             />
           </PromptInputBody>
           <PromptInputFooter>
+            <PromptInputSelect value={selectedModel} onValueChange={handleModelChange}>
+              <PromptInputSelectTrigger className="w-auto gap-1 text-xs h-8">
+                <PromptInputSelectValue />
+              </PromptInputSelectTrigger>
+              <PromptInputSelectContent>
+                {ANTHROPIC_MODELS.map((m) => (
+                  <PromptInputSelectItem key={m.id} value={m.id}>
+                    <span>{m.name}</span>
+                    <span className="ml-2 text-muted-foreground text-xs">
+                      {m.description}
+                    </span>
+                  </PromptInputSelectItem>
+                ))}
+              </PromptInputSelectContent>
+            </PromptInputSelect>
             {isStreaming ? (
               <Button variant="outline" size="sm" type="button" onClick={() => stop()}>
                 Stop

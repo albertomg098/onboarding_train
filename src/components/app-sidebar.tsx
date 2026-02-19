@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Sidebar,
   SidebarContent,
@@ -24,9 +25,13 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/20 text-primary font-bold text-sm">
-            T
-          </div>
+          <Image
+            src="/traza-logo.png"
+            alt="Traza"
+            width={32}
+            height={32}
+            className="h-8 w-8 object-contain"
+          />
           <div className="flex flex-col group-data-[collapsible=icon]:hidden">
             <span className="text-sm font-semibold text-foreground">
               Traza Training

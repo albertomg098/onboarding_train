@@ -10,7 +10,7 @@ vi.mock("ai", () => ({
 
 vi.mock("@ai-sdk/anthropic", () => ({
   createAnthropic: vi.fn(() => {
-    const model = vi.fn(() => "mocked-model");
+    const model = vi.fn(() => "mocked-model") as ReturnType<typeof vi.fn> & { tools: Record<string, unknown> };
     model.tools = {
       webSearch_20250305: vi.fn(() => "mocked-web-search-tool"),
     };
