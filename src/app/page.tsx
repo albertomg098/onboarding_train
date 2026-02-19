@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { ApiKeyWarning } from "@/components/api-key-warning";
 
 export default function HomePage() {
   return (
@@ -23,6 +24,8 @@ export default function HomePage() {
           simulations.
         </p>
       </div>
+
+      <ApiKeyWarning />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full mb-12">
         {MODULES.map((mod) => {
