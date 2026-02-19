@@ -127,12 +127,12 @@ export function SimulationTheory() {
                 {r.description}
               </p>
               <div className="grid sm:grid-cols-2 gap-2 text-xs">
-                <div className="p-2 rounded bg-green-500/5 border border-green-500/10">
-                  <span className="text-green-400 font-medium">Good:</span>
+                <div className="p-2 rounded bg-green-500/10 border border-green-500/30">
+                  <span className="text-green-600 dark:text-green-400 font-medium">Good:</span>
                   <span className="text-foreground/70 ml-1">{r.good}</span>
                 </div>
-                <div className="p-2 rounded bg-red-500/5 border border-red-500/10">
-                  <span className="text-red-400 font-medium">Bad:</span>
+                <div className="p-2 rounded bg-red-500/10 border border-red-500/30">
+                  <span className="text-red-600 dark:text-red-400 font-medium">Bad:</span>
                   <span className="text-foreground/70 ml-1">{r.bad}</span>
                 </div>
               </div>

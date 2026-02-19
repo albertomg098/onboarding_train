@@ -17,16 +17,19 @@ import {
 import { Settings } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { MODULES } from "@/lib/modules";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { useTheme } from "next-themes";
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { resolvedTheme } = useTheme();
 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
           <Image
-            src="/traza-logo.png"
+            src={resolvedTheme === "dark" ? "/traza-logo.png" : "/traza-logo-light.png"}
             alt="Traza"
             width={32}
             height={32}
@@ -68,9 +71,12 @@ export function AppSidebar() {
       <SidebarFooter>
         <div className="flex items-center justify-between px-2 py-1">
           <UserButton afterSignOutUrl="/sign-in" />
-          <Link href="/settings" className="p-2 rounded-md hover:bg-accent">
-            <Settings className="h-4 w-4" />
-          </Link>
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <Link href="/settings" className="p-2 rounded-md hover:bg-accent">
+              <Settings className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </SidebarFooter>
     </Sidebar>

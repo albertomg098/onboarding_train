@@ -7,6 +7,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { ChatMigrationProvider } from "@/components/chat-migration-provider";
 import { MobileHeader } from "@/components/mobile-header";
 import { SidebarCloseOnNav } from "@/components/sidebar-close-on-nav";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,24 +36,26 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="dark" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} h-screen-safe bg-background text-foreground antialiased overflow-hidden`}
         >
-          <TooltipProvider>
-            <SidebarProvider className="h-full !min-h-0">
-              <AppSidebar />
-              <SidebarCloseOnNav />
-              <SidebarInset className="h-full min-h-0 overflow-hidden">
-                <MobileHeader />
-                <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
-                  <ChatMigrationProvider>
-                    {children}
-                  </ChatMigrationProvider>
-                </div>
-              </SidebarInset>
-            </SidebarProvider>
-          </TooltipProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+            <TooltipProvider>
+              <SidebarProvider className="h-full !min-h-0">
+                <AppSidebar />
+                <SidebarCloseOnNav />
+                <SidebarInset className="h-full min-h-0 overflow-hidden">
+                  <MobileHeader />
+                  <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+                    <ChatMigrationProvider>
+                      {children}
+                    </ChatMigrationProvider>
+                  </div>
+                </SidebarInset>
+              </SidebarProvider>
+            </TooltipProvider>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

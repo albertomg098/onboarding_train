@@ -250,7 +250,7 @@ export function PromptEditor() {
 
           <div className="flex items-center gap-2">
             {saveMessage && (
-              <span className="text-sm text-green-600">{saveMessage}</span>
+              <span className="text-sm text-green-600 dark:text-green-400">{saveMessage}</span>
             )}
             <AlertDialog>
               <AlertDialogTrigger asChild>
