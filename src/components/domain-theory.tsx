@@ -61,7 +61,7 @@ export function DomainTheory() {
 
   return (
     <div className="space-y-6">
-      <Card className="p-4">
+      <Card className="max-w-4xl p-4">
         <p className="text-sm text-muted-foreground mb-2">
           Default: Freight Forwarding. Generate content for any domain.
         </p>
