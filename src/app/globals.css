@@ -49,43 +49,43 @@
 }
 
 /*
- * TRAZA TRAINING — Dark-only theme
- * Teal/cyan accent on dark navy background
- * Both :root and .dark use the same dark values
+ * TRAZA TRAINING — Dual theme
+ * Light: clean white/gray with teal accent
+ * Dark:  teal/cyan accent on dark navy background
  */
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.17 0.02 250);
-  --foreground: oklch(0.92 0 0);
-  --card: oklch(0.20 0.02 250);
-  --card-foreground: oklch(0.92 0 0);
-  --popover: oklch(0.20 0.02 250);
-  --popover-foreground: oklch(0.92 0 0);
-  --primary: oklch(0.72 0.15 190);
-  --primary-foreground: oklch(0.17 0.02 250);
-  --secondary: oklch(0.25 0.015 250);
-  --secondary-foreground: oklch(0.92 0 0);
-  --muted: oklch(0.25 0.015 250);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.72 0.15 190);
-  --accent-foreground: oklch(0.17 0.02 250);
-  --destructive: oklch(0.65 0.2 25);
-  --border: oklch(0.28 0.015 250);
-  --input: oklch(0.28 0.015 250);
-  --ring: oklch(0.72 0.15 190);
-  --chart-1: oklch(0.72 0.15 190);
-  --chart-2: oklch(0.65 0.18 160);
-  --chart-3: oklch(0.60 0.12 250);
-  --chart-4: oklch(0.75 0.15 80);
-  --chart-5: oklch(0.70 0.17 310);
-  --sidebar: oklch(0.18 0.02 250);
-  --sidebar-foreground: oklch(0.88 0 0);
-  --sidebar-primary: oklch(0.72 0.15 190);
-  --sidebar-primary-foreground: oklch(0.17 0.02 250);
-  --sidebar-accent: oklch(0.23 0.015 250);
-  --sidebar-accent-foreground: oklch(0.92 0 0);
-  --sidebar-border: oklch(0.25 0.015 250);
-  --sidebar-ring: oklch(0.72 0.15 190);
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.15 0.02 250);
+  --card: oklch(1.0 0 0);
+  --card-foreground: oklch(0.15 0.02 250);
+  --popover: oklch(1.0 0 0);
+  --popover-foreground: oklch(0.15 0.02 250);
+  --primary: oklch(0.55 0.15 190);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.93 0.005 250);
+  --secondary-foreground: oklch(0.20 0.02 250);
+  --muted: oklch(0.93 0.005 250);
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.55 0.15 190);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.55 0.2 25);
+  --border: oklch(0.88 0.005 250);
+  --input: oklch(0.88 0.005 250);
+  --ring: oklch(0.55 0.15 190);
+  --chart-1: oklch(0.55 0.15 190);
+  --chart-2: oklch(0.50 0.18 160);
+  --chart-3: oklch(0.45 0.12 250);
+  --chart-4: oklch(0.60 0.15 80);
+  --chart-5: oklch(0.55 0.17 310);
+  --sidebar: oklch(0.97 0.005 250);
+  --sidebar-foreground: oklch(0.20 0.02 250);
+  --sidebar-primary: oklch(0.55 0.15 190);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.93 0.005 250);
+  --sidebar-accent-foreground: oklch(0.15 0.02 250);
+  --sidebar-border: oklch(0.88 0.005 250);
+  --sidebar-ring: oklch(0.55 0.15 190);
 }
 
 .dark {
@@ -133,9 +133,9 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: oklch(0.17 0.02 250); }
-::-webkit-scrollbar-thumb { background: oklch(0.32 0.015 250); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: oklch(0.40 0.015 250); }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-foreground); }
 
 /* Chat Animations */
 @keyframes message-in {
@@ -151,13 +151,13 @@
 .streaming-cursor::after {
   content: "\25CB";
   animation: blink 0.8s infinite;
-  color: oklch(0.72 0.15 190);
+  color: var(--primary);
 }
 
 /* Chat Input Focus Glow */
 .chat-input-wrapper:focus-within {
-  box-shadow: 0 0 0 2px oklch(0.72 0.15 190 / 0.15);
-  border-color: oklch(0.72 0.15 190 / 0.4);
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--primary) 15%, transparent);
+  border-color: color-mix(in oklch, var(--primary) 40%, transparent);
 }
 
 /* Mobile Keyboard Handling */

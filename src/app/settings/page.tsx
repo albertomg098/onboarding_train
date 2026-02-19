@@ -92,7 +92,7 @@ export default function SettingsPage() {
                     ? "bg-red-500"
                     : status === "testing"
                       ? "bg-yellow-500 animate-pulse"
-                      : "bg-gray-400"
+                      : "bg-muted-foreground"
               }`}
             />
             <span>

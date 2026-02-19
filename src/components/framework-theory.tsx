@@ -16,9 +16,9 @@ const STEPS = [
   {
     step: 1,
     name: "UNDERSTAND",
-    color: "text-blue-400",
-    bgColor: "bg-blue-400/10",
-    borderColor: "border-blue-400/30",
+    color: "text-blue-600 dark:text-blue-400",
+    bgColor: "bg-blue-500/10",
+    borderColor: "border-blue-500/30",
     lenses: [
       "Domain First — what does the business actually do?",
       "Happy Path — what's the ideal flow?",
@@ -37,9 +37,9 @@ const STEPS = [
   {
     step: 2,
     name: "MODEL",
-    color: "text-green-400",
-    bgColor: "bg-green-400/10",
-    borderColor: "border-green-400/30",
+    color: "text-green-600 dark:text-green-400",
+    bgColor: "bg-green-500/10",
+    borderColor: "border-green-500/30",
     lenses: [
       "Entities — what are the 'things' in this domain?",
       "States — what stages does each entity go through?",
@@ -58,9 +58,9 @@ const STEPS = [
   {
     step: 3,
     name: "PRIORITIZE",
-    color: "text-yellow-400",
-    bgColor: "bg-yellow-400/10",
-    borderColor: "border-yellow-400/30",
+    color: "text-yellow-600 dark:text-yellow-400",
+    bgColor: "bg-yellow-500/10",
+    borderColor: "border-yellow-500/30",
     lenses: [
       "Impact vs Effort — classic 2x2 matrix",
       "Quick Wins — what's high impact + low effort?",
@@ -79,9 +79,9 @@ const STEPS = [
   {
     step: 4,
     name: "DESIGN",
-    color: "text-purple-400",
-    bgColor: "bg-purple-400/10",
-    borderColor: "border-purple-400/30",
+    color: "text-purple-600 dark:text-purple-400",
+    bgColor: "bg-purple-500/10",
+    borderColor: "border-purple-500/30",
     lenses: [
       "Trigger — what starts the AI Worker?",
       "Steps — what does it do, in order?",
@@ -100,9 +100,9 @@ const STEPS = [
   {
     step: 5,
     name: "BUSINESS IMPACT",
-    color: "text-red-400",
-    bgColor: "bg-red-400/10",
-    borderColor: "border-red-400/30",
+    color: "text-red-600 dark:text-red-400",
+    bgColor: "bg-red-500/10",
+    borderColor: "border-red-500/30",
     lenses: [
       "Time Saved — hours/week freed up?",
       "Error Reduction — what mistakes are eliminated?",
