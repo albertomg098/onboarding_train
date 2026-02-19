@@ -17,6 +17,13 @@ export const SUGGESTED_PROMPTS: Record<string, string[]> = {
     "Run a compliance-focused simulation",
     "Start a customer communication scenario",
   ],
+  pricing: [
+    "¿Cuál es el mejor modelo de pricing para AI Workers en freight forwarding?",
+    "Ayúdame a calcular unit economics para un cliente con 300 envíos/mes",
+    "¿Cómo justificar el ROI de Traza frente al coste de operadores humanos?",
+    "Diseña una propuesta de pricing 3-layer para un forwarder mediano",
+    "¿Qué objeciones de precio esperamos y cómo las rebatimos?",
+  ],
 };
 
 export const CHAT_CONFIG = {
@@ -31,6 +38,7 @@ export const CHAT_PLACEHOLDERS: Record<string, string> = {
   domain: "Ask about freight forwarding concepts...",
   framework: "Practice the 5-step framework...",
   simulation: "Start a simulation or ask for a scenario...",
+  pricing: "Pregunta sobre estrategia de precios, unit economics o posicionamiento competitivo...",
 };
 
 // --- Model Selection ---
