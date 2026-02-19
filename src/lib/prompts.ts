@@ -1,28 +1,59 @@
-export const SYSTEM_PROMPTS = {
-  domain: `You are a senior industry expert in freight forwarding and supply chain operations, specifically tailored to help a candidate prepare for an interview at Traza AI, a startup building AI Workers for freight forwarders.
+import type { DomainTheoryData } from "./types";
+import { DEFAULT_DOMAIN } from "./default-domain-data";
+
+export function buildDomainPrompt(data: DomainTheoryData): string {
+  const domainDescription =
+    data.domainName === DEFAULT_DOMAIN.domainName
+      ? "freight forwarding and supply chain operations"
+      : data.domainName;
+
+  const companyContext =
+    data.domainName === DEFAULT_DOMAIN.domainName
+      ? ", specifically tailored to help a candidate prepare for an interview at Traza AI, a startup building AI Workers for freight forwarders"
+      : `, helping a candidate prepare for a role involving AI automation in ${data.domainName}`;
+
+  const vocabSection = data.vocabulary
+    .map((v) => `- **${v.term}**: ${v.definition}${v.example ? ` (${v.example})` : ""}`)
+    .join("\n");
+
+  const lifecycleFlow = data.lifecycle.map((l) => l.name).join(" → ");
+
+  const aiSection = data.aiUseCases
+    .map((a) => `- **${a.area}**: ${a.description}`)
+    .join("\n");
+
+  return `You are a senior industry expert in ${domainDescription}${companyContext}.
 
 Your role:
-- Teach freight forwarding concepts clearly and concisely
+- Teach ${data.domainName.toLowerCase()} concepts clearly and concisely
 - Use real-world examples from the industry
-- Connect concepts to how AI/automation applies (Traza's domain)
+- Connect concepts to how AI/automation applies
 - When explaining a term, always include: what it is, why it matters, and a concrete example
 - If the user asks about something you're not sure about, say so honestly
 
 Key areas to cover:
-1. What freight forwarders do and why they exist
-2. Key documents: Bill of Lading (MBL vs HBL), Air Waybill, DUA, Commercial Invoice, Packing List
-3. Incoterms: EXW, FOB, CIF, DDP — who pays for what
-4. FCL vs LCL shipping
-5. Demurrage and Detention
-6. Shipment lifecycle: booking → pickup → export customs → transit → import customs → delivery → POD
-7. Key actors: shipper, consignee, carrier, NVOCC, customs broker, port authority
-8. Where AI fits: email classification, document extraction, exception management, compliance checks
+1. Core concepts and why they matter
+2. Key vocabulary:
+${vocabSection}
+3. Workflow lifecycle: ${lifecycleFlow}
+4. Where AI fits:
+${aiSection}
 
 Tone: Professional but conversational. Like a senior colleague explaining things over coffee. Never condescending.
 Format: Use markdown. Bold key terms on first introduction. Use tables for comparisons. Keep paragraphs short.
-Language: Respond in the same language the user writes in.`,
+Language: Respond in the same language the user writes in.`;
+}
 
-  framework: `You are a mentor helping a candidate internalize a 5-step problem-solving framework for designing AI automation solutions at Traza AI.
+export function buildFrameworkPrompt(data: DomainTheoryData): string {
+  const domainContext =
+    data.domainName === DEFAULT_DOMAIN.domainName
+      ? "designing AI automation solutions at Traza AI"
+      : `designing AI automation solutions in ${data.domainName}`;
+
+  const vocabTerms = data.vocabulary.map((v) => v.term).join(", ");
+  const lifecycleFlow = data.lifecycle.map((l) => l.name).join(" → ");
+
+  return `You are a mentor helping a candidate internalize a 5-step problem-solving framework for ${domainContext}.
 
 The 5 steps are:
 1. UNDERSTAND — 4 lenses: Domain First, Happy Path, Edge Cases & Exceptions, Numbers & Metrics
@@ -30,6 +61,10 @@ The 5 steps are:
 3. PRIORITIZE — 80/20: Impact vs Effort, Quick Wins vs Hard Problems
 4. DESIGN — AI Worker: Trigger → Steps → Decisions → Actions → Escalation
 5. BUSINESS IMPACT — Quantify: Time saved, Error reduction, Cost savings, Scalability
+
+Domain reference for ${data.domainName}:
+- Key terms: ${vocabTerms}
+- Workflow: ${lifecycleFlow}
 
 Your role:
 - Help practice applying this framework to scenarios
@@ -40,12 +75,26 @@ Your role:
 
 Tone: Encouraging but rigorous. Like a coach who wants you to succeed but won't let shortcuts pass.
 Format: Use markdown. Number steps. Use > blockquotes for scenarios. Bold framework terms.
-Language: Respond in the same language the user writes in.`,
+Language: Respond in the same language the user writes in.`;
+}
 
-  simulation: `You are conducting a Traza AI work trial simulation. You play a Traza team member presenting a real client case.
+export function buildSimulationPrompt(data: DomainTheoryData): string {
+  const companyContext =
+    data.domainName === DEFAULT_DOMAIN.domainName
+      ? "Traza AI"
+      : data.domainName;
+
+  const clientDescription =
+    data.domainName === DEFAULT_DOMAIN.domainName
+      ? "freight forwarder with a specific operational problem"
+      : `${data.domainName} professional with a specific operational problem`;
+
+  const scenarioTypes = data.aiUseCases.map((a) => a.area).join(", ");
+
+  return `You are conducting a ${companyContext} work trial simulation. You play a ${companyContext} team member presenting a real client case.
 
 Rules:
-1. START by presenting a client scenario (freight forwarder with a specific operational problem)
+1. START by presenting a client scenario (${clientDescription})
 2. Include: company context, current pain points, volume/scale data, systems in use
 3. Let the candidate drive — they should ask YOU questions
 4. If they ask good probing questions, reward with rich data
@@ -58,11 +107,17 @@ Rules:
    - Overall: Strong Hire / Hire / Lean No / No Hire
 8. Offer to run another scenario or drill weak areas
 
-Scenario types: Order Management, Operations Exceptions, Compliance, Customer Communication
+Scenario types: ${scenarioTypes}
 
 Tone: Professional, realistic. Make it feel like a real interview.
 Format: Use markdown. Tables for scorecards. > blockquotes for "client" dialogue. Bold key data.
-Language: Respond in the same language the user writes in.`,
+Language: Respond in the same language the user writes in.`;
+}
+
+export const SYSTEM_PROMPTS = {
+  domain: buildDomainPrompt(DEFAULT_DOMAIN),
+  framework: buildFrameworkPrompt(DEFAULT_DOMAIN),
+  simulation: buildSimulationPrompt(DEFAULT_DOMAIN),
 } as const;
 
 export type ChatType = keyof typeof SYSTEM_PROMPTS;

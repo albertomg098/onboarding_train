@@ -1,7 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { getCachedDomainData } from "@/lib/prompt-store";
+import type { DomainTheoryData } from "@/lib/types";
 
 const RUBRIC = [
   {
@@ -71,6 +74,12 @@ const TIPS = [
 ];
 
 export function SimulationTheory() {
+  const [domainData, setDomainData] = useState<DomainTheoryData | null>(null);
+
+  useEffect(() => {
+    setDomainData(getCachedDomainData());
+  }, []);
+
   return (
     <div className="max-w-4xl space-y-8">
       <Card className="p-4 bg-card border-border">
@@ -81,6 +90,20 @@ export function SimulationTheory() {
           it questions as if you&apos;re in a real interview.
         </p>
       </Card>
+
+      {domainData && (
+        <Card className="p-4 bg-primary/5 border-primary/20">
+          <p className="text-sm font-medium text-primary mb-1">
+            Domain: {domainData.domainName}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            AI areas: {domainData.aiUseCases.map((a) => a.area).join(", ")}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Vocabulary: {domainData.vocabulary.map((v) => v.term).join(", ")}
+          </p>
+        </Card>
+      )}
 
       <section>
         <h2 className="text-lg font-semibold text-foreground mb-3">

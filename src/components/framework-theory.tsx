@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import {
   Accordion,
@@ -8,6 +9,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { getCachedDomainData } from "@/lib/prompt-store";
+import type { DomainTheoryData } from "@/lib/types";
 
 const STEPS = [
   {
@@ -118,6 +121,12 @@ const STEPS = [
 ];
 
 export function FrameworkTheory() {
+  const [domainData, setDomainData] = useState<DomainTheoryData | null>(null);
+
+  useEffect(() => {
+    setDomainData(getCachedDomainData());
+  }, []);
+
   return (
     <div className="max-w-4xl space-y-6">
       <Card className="p-4 bg-card border-border">
@@ -128,6 +137,20 @@ export function FrameworkTheory() {
           and business value.
         </p>
       </Card>
+
+      {domainData && (
+        <Card className="p-4 bg-primary/5 border-primary/20">
+          <p className="text-sm font-medium text-primary mb-1">
+            Domain: {domainData.domainName}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Vocabulary: {domainData.vocabulary.map((v) => v.term).join(", ")}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Workflow: {domainData.lifecycle.map((l) => l.name).join(" → ")}
+          </p>
+        </Card>
+      )}
 
       {STEPS.map((s) => (
         <Card key={s.step} className={`p-4 border ${s.borderColor} bg-card`}>

@@ -88,4 +88,5 @@ export const DEFAULT_DOMAIN: DomainTheoryData = {
     { area: "Exception Management", description: "Detect delays, missing documents, customs holds. Proactively notify stakeholders before they ask.", impact: "Reduces resolution time from hours to minutes" },
     { area: "Compliance Checks", description: "Validate documents against regulations. Flag missing fields, incorrect Incoterms, sanctioned entities.", impact: "Prevents costly customs delays and fines" },
   ],
+  sources: [],
 };

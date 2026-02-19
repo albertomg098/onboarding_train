@@ -1,4 +1,4 @@
-import { generateText, Output } from "ai";
+import { generateText, Output, stepCountIs } from "ai";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { auth } from "@clerk/nextjs/server";
 import { getApiKey } from "@/lib/api-key";
@@ -55,20 +55,39 @@ export async function POST(req: Request) {
     );
   }
 
+  const trimmedDomain = domain.trim();
+  const provider = createAnthropic({ apiKey });
+  const model = provider("claude-sonnet-4-20250514");
+
   try {
     const { output } = await generateText({
-      model: createAnthropic({ apiKey })("claude-sonnet-4-20250514"),
+      model,
+      stopWhen: stepCountIs(7),
+      maxOutputTokens: 4000,
+      tools: {
+        web_search: provider.tools.webSearch_20250305({
+          maxUses: 5,
+        }),
+      },
       output: Output.object({ schema: DomainTheoryDataSchema }),
-      prompt: `Generate comprehensive training theory content for the domain: "${domain.trim()}"`,
       system: `You are an expert at creating educational content for industry training.
-Given a domain/industry, generate a comprehensive theory module with:
+You have access to web search. Use it to find accurate, current information about the domain.
 
-1. overview: A title (format: "What is {Domain}?") and 2 explanatory paragraphs
-2. vocabulary: 10-12 key terms with clear definitions and relatable real-world examples
-3. lifecycle: 7-9 sequential steps in the typical end-to-end workflow
+Perform 3-4 targeted searches to gather:
+- Industry overview, key terminology, and vocabulary
+- End-to-end workflow/lifecycle steps
+- AI/automation applications and real metrics
+
+Then generate a comprehensive theory module with:
+1. overview: A title (format: "What is {Domain}?") and 2-3 explanatory paragraphs
+2. vocabulary: 10-12 key terms with precise definitions and real-world examples
+3. lifecycle: 7-9 sequential steps in the end-to-end workflow
 4. aiUseCases: 4 specific areas where AI/automation adds measurable value
+5. sources: Array of {title, url} for key references found via search
 
-Make content practical, specific, and grounded in real industry knowledge. Avoid generic filler.`,
+Be practical, specific, grounded in real industry knowledge. No generic filler. No invented terminology.
+Use real terminology and real workflows found in your research.`,
+      prompt: `Generate a comprehensive training theory module for: "${trimmedDomain}"`,
     });
 
     if (!output) {

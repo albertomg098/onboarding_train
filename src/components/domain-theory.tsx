@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react";
 import { DEFAULT_DOMAIN } from "@/lib/default-domain-data";
 import { TheoryRenderer } from "@/components/theory-renderer";
-import { setSystemPrompt, resetSystemPrompt } from "@/lib/prompt-store";
+import { updateAllDomainPrompts, resetAllDomainPrompts, getCachedDomainData } from "@/lib/prompt-store";
 import type { DomainTheoryData } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
-
-const CACHE_KEY = "traza-custom-domain";
 
 export function DomainTheory() {
   const [domainData, setDomainData] = useState<DomainTheoryData>(DEFAULT_DOMAIN);
@@ -19,13 +17,9 @@ export function DomainTheory() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const cached = localStorage.getItem(CACHE_KEY);
+    const cached = getCachedDomainData();
     if (cached) {
-      try {
-        setDomainData(JSON.parse(cached));
-      } catch {
-        /* use default */
-      }
+      setDomainData(cached);
     }
   }, []);
 
@@ -51,17 +45,7 @@ export function DomainTheory() {
 
       const data: DomainTheoryData = await res.json();
       setDomainData(data);
-      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-
-      setSystemPrompt(
-        "domain",
-        `You are a senior industry expert in ${data.domainName}.
-Your role: Teach ${data.domainName} concepts clearly to someone preparing for a role in this industry.
-Key vocabulary: ${data.vocabulary.map((v) => v.term).join(", ")}.
-Workflow steps: ${data.lifecycle.map((l) => l.name).join(" → ")}.
-AI areas: ${data.aiUseCases.map((a) => a.area).join(", ")}.
-Be specific, use real examples, connect to practical scenarios.`
-      );
+      updateAllDomainPrompts(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -71,9 +55,8 @@ Be specific, use real examples, connect to practical scenarios.`
 
   const handleReset = () => {
     setDomainData(DEFAULT_DOMAIN);
-    localStorage.removeItem(CACHE_KEY);
     setCustomDomain("");
-    resetSystemPrompt("domain");
+    resetAllDomainPrompts();
   };
 
   return (
