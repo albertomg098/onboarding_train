@@ -9,7 +9,7 @@ interface ModuleLayoutProps {
   title: string;
   description: string;
   theoryContent: React.ReactNode;
-  chatType: "domain" | "framework" | "simulation";
+  chatType: "domain" | "framework" | "simulation" | "pricing";
 }
 
 export function ModuleLayout({

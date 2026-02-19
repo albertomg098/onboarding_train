@@ -2,7 +2,7 @@ import { SYSTEM_PROMPTS, buildDomainPrompt, buildFrameworkPrompt, buildSimulatio
 import { SUGGESTED_PROMPTS } from "./constants";
 import type { DomainTheoryData } from "./types";
 
-export type ChatType = "domain" | "framework" | "simulation";
+export type ChatType = "domain" | "framework" | "simulation" | "pricing";
 
 const STORAGE_PREFIX = "traza-prompt-";
 const SUGGESTED_PREFIX = "traza-suggested-";
@@ -133,7 +133,7 @@ export function resetAllDomainPrompts(): void {
 
 export function exportAllPrompts(): string {
   const data: Record<string, unknown> = {};
-  const types: ChatType[] = ["domain", "framework", "simulation"];
+  const types: ChatType[] = ["domain", "framework", "simulation", "pricing"];
   for (const type of types) {
     const prompt = localStorage.getItem(`${STORAGE_PREFIX}${type}`);
     const suggested = localStorage.getItem(`${SUGGESTED_PREFIX}${type}`);

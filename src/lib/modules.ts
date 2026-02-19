@@ -1,4 +1,4 @@
-import { BookOpen, Brain, MessageSquare } from "lucide-react";
+import { BookOpen, Brain, MessageSquare, DollarSign } from "lucide-react";
 
 export const MODULES = [
   {
@@ -30,6 +30,16 @@ export const MODULES = [
     icon: MessageSquare,
     order: 3,
     cta: "Start Simulating",
+  },
+  {
+    id: "pricing" as const,
+    href: "/pricing",
+    label: "Pricing Strategy",
+    description:
+      "AI Worker pricing models, market analysis, and strategy recommendations.",
+    icon: DollarSign,
+    order: 4,
+    cta: "Explore Pricing",
   },
 ] as const;
 

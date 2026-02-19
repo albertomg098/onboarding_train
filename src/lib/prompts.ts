@@ -1,5 +1,6 @@
 import type { DomainTheoryData } from "./types";
 import { DEFAULT_DOMAIN } from "./default-domain-data";
+import { PRICING_SYSTEM_PROMPT } from "./prompts/pricing";
 
 export function buildDomainPrompt(data: DomainTheoryData): string {
   const domainDescription =
@@ -118,7 +119,10 @@ export const SYSTEM_PROMPTS = {
   domain: buildDomainPrompt(DEFAULT_DOMAIN),
   framework: buildFrameworkPrompt(DEFAULT_DOMAIN),
   simulation: buildSimulationPrompt(DEFAULT_DOMAIN),
+  pricing: PRICING_SYSTEM_PROMPT,
 } as const;
+
+export { PRICING_SYSTEM_PROMPT };
 
 export type ChatType = keyof typeof SYSTEM_PROMPTS;
 

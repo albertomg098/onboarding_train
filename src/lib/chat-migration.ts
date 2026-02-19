@@ -1,5 +1,5 @@
 export function migrateOldChatData(): void {
-  const chatTypes = ["domain", "framework", "simulation"];
+  const chatTypes = ["domain", "framework", "simulation", "pricing"];
 
   for (const type of chatTypes) {
     const key = `traza-chat-${type}`;
