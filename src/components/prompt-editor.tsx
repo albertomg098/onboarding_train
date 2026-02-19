@@ -35,10 +35,10 @@ import {
 } from "@/lib/prompt-store";
 import { Download, Upload, RotateCcw, Save, Eye } from "lucide-react";
 
-const CHAT_TYPES: { id: ChatType; label: string }[] = [
-  { id: "domain", label: "Domain Knowledge" },
-  { id: "framework", label: "Mental Framework" },
-  { id: "simulation", label: "Scenario Simulation" },
+const CHAT_TYPES: { id: ChatType; label: string; shortLabel: string }[] = [
+  { id: "domain", label: "Domain Knowledge", shortLabel: "Domain" },
+  { id: "framework", label: "Mental Framework", shortLabel: "Framework" },
+  { id: "simulation", label: "Scenario Simulation", shortLabel: "Simulation" },
 ];
 
 export function PromptEditor() {
@@ -149,9 +149,10 @@ export function PromptEditor() {
                 value={ct.id}
                 className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
               >
-                {ct.label}
+                <span className="sm:hidden">{ct.shortLabel}</span>
+                <span className="hidden sm:inline">{ct.label}</span>
                 {isPromptCustomized(ct.id) && (
-                  <Badge variant="secondary" className="text-xs">
+                  <Badge variant="secondary" className="text-xs hidden sm:inline-flex">
                     Custom
                   </Badge>
                 )}

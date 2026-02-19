@@ -29,7 +29,7 @@ export function AppSidebar() {
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
           <Image
-            src={resolvedTheme === "dark" ? "/traza-logo.png" : "/traza-logo-light.png"}
+            src={resolvedTheme === "light" ? "/traza-logo-light.png" : "/traza-logo.png"}
             alt="Traza"
             width={32}
             height={32}
