@@ -27,6 +27,15 @@ export const DomainTheoryDataSchema = z.object({
   vocabulary: z.array(VocabularyItemSchema).min(8).max(15),
   lifecycle: z.array(LifecycleStepSchema).min(5).max(12),
   aiUseCases: z.array(AIUseCaseSchema).min(3).max(6),
+  sources: z
+    .array(
+      z.object({
+        title: z.string(),
+        url: z.string().url(),
+      })
+    )
+    .optional()
+    .default([]),
 });
 
 export type DomainTheoryData = z.infer<typeof DomainTheoryDataSchema>;

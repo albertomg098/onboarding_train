@@ -12,7 +12,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-12">
+    <div className="flex flex-col items-center justify-center h-full overflow-auto px-4 py-8 md:py-12">
       <div className="text-center max-w-2xl mb-12">
         <h1 className="text-4xl font-bold tracking-tight mb-4">
           Traza Training Hub

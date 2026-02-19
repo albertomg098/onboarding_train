@@ -87,6 +87,25 @@ export function TheoryRenderer({ data }: TheoryRendererProps) {
           ))}
         </div>
       </section>
+      {data.sources && data.sources.length > 0 && (
+        <section>
+          <h3 className="text-xl font-semibold mb-3">Sources</h3>
+          <ul className="text-sm text-muted-foreground space-y-1">
+            {data.sources.map((source, i) => (
+              <li key={i}>
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground transition-colors"
+                >
+                  {source.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

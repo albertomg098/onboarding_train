@@ -1,11 +1,14 @@
-import { SYSTEM_PROMPTS } from "./prompts";
+import { SYSTEM_PROMPTS, buildDomainPrompt, buildFrameworkPrompt, buildSimulationPrompt } from "./prompts";
 import { SUGGESTED_PROMPTS } from "./constants";
+import type { DomainTheoryData } from "./types";
 
 export type ChatType = "domain" | "framework" | "simulation";
 
 const STORAGE_PREFIX = "traza-prompt-";
 const SUGGESTED_PREFIX = "traza-suggested-";
 const CONTEXT_PREFIX = "traza-context-";
+const DOMAIN_KEY = "traza-active-domain";
+const CACHE_KEY = "traza-custom-domain";
 
 const MAX_PROMPT_LENGTH = 10_000;
 const MAX_CONTEXT_LENGTH = 2_000;
@@ -77,6 +80,40 @@ export function getFullSystemPrompt(type: ChatType): string {
   const context = getContext(type);
   if (!context.trim()) return base;
   return `${base}\n\n## User Context\n${context}`;
+}
+
+// --- Domain Data Management ---
+
+export function getActiveDomain(): string {
+  if (typeof window === "undefined") return "Freight Forwarding";
+  return localStorage.getItem(DOMAIN_KEY) ?? "Freight Forwarding";
+}
+
+export function getCachedDomainData(): DomainTheoryData | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function updateAllDomainPrompts(data: DomainTheoryData): void {
+  localStorage.setItem(DOMAIN_KEY, data.domainName);
+  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+
+  setSystemPrompt("domain", buildDomainPrompt(data));
+  setSystemPrompt("framework", buildFrameworkPrompt(data));
+  setSystemPrompt("simulation", buildSimulationPrompt(data));
+}
+
+export function resetAllDomainPrompts(): void {
+  localStorage.removeItem(DOMAIN_KEY);
+  localStorage.removeItem(CACHE_KEY);
+  resetSystemPrompt("domain");
+  resetSystemPrompt("framework");
+  resetSystemPrompt("simulation");
 }
 
 // --- Export / Import ---
